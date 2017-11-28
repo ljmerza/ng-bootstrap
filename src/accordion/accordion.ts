@@ -102,13 +102,13 @@ export interface NgbPanelChangeEvent {
   template: `
     <ng-template ngFor let-panel [ngForOf]="panels">
       <div class="card">
-        <div role="tab" id="{{panel.id}}-header"
+        <div role="tab" id="{{panel.id}}-header" (click)="!!toggle(panel.id)"
           [class]="'card-header ' + (panel.type ? 'card-'+panel.type: type ? 'card-'+type : '')" [class.active]="panel.isOpen">
-          <a href (click)="!!toggle(panel.id)" [class.text-muted]="panel.disabled" [attr.tabindex]="(panel.disabled ? '-1' : null)"
+          <span [class.text-muted]="panel.disabled" [attr.tabindex]="(panel.disabled ? '-1' : null)"
             [attr.aria-expanded]="panel.isOpen" [attr.aria-controls]="(panel.isOpen ? panel.id : null)"
             [attr.aria-disabled]="panel.disabled">
             {{panel.title}}<ng-template [ngTemplateOutlet]="panel.titleTpl?.templateRef"></ng-template>
-          </a>
+          </span>
         </div>
         <div id="{{panel.id}}" role="tabpanel" [attr.aria-labelledby]="panel.id + '-header'"
              class="card-body collapse {{panel.isOpen ? 'show' : null}}" *ngIf="!destroyOnHide || panel.isOpen">
